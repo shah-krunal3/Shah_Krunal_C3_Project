@@ -3,6 +3,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -63,6 +65,19 @@ class RestaurantTest {
     public void removing_item_that_does_not_exist_should_throw_exception() {
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
+    }
+
+    @Test
+    public void selecting_menu_items_and_check_if_the_total_order_value_is_equal_to_the_sum_of_all_price_of_items_added_in_the_menu(){
+        List<Item> selectedItems = new ArrayList<>();
+        Item temp = restaurant.findItemByName("French Fries");
+        selectedItems.add(temp);
+        temp = restaurant.findItemByName("Vegetable lasagne");
+        selectedItems.add(temp);
+
+        int totalCost = restaurant.getTotalCostOfItems(selectedItems);
+
+        assertEquals(totalCost,150);
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
