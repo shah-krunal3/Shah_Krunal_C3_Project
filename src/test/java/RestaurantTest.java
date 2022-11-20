@@ -70,14 +70,23 @@ class RestaurantTest {
     @Test
     public void selecting_menu_items_and_check_if_the_total_order_value_is_equal_to_the_sum_of_all_price_of_items_added_in_the_menu(){
         List<Item> selectedItems = new ArrayList<>();
-        Item temp = restaurant.findItemByName("French Fries");
-        selectedItems.add(temp);
+        Item temp = restaurant.findItemByName("Sweet corn soup");
+        if (temp!=null)
+            selectedItems.add(temp);
         temp = restaurant.findItemByName("Vegetable lasagne");
-        selectedItems.add(temp);
-
+        if (temp!=null)
+            selectedItems.add(temp);
         int totalCost = restaurant.getTotalCostOfItems(selectedItems);
 
-        assertEquals(totalCost,150);
+        assertEquals(totalCost,300);
+
+        //Add a new item to check if total is correct after new item
+        restaurant.addToMenu("Tomato soup", 200);
+        temp = restaurant.findItemByName("Tomato soup");
+        if (temp!=null)
+            selectedItems.add(temp);
+        totalCost = restaurant.getTotalCostOfItems(selectedItems);
+        assertEquals(totalCost,500);
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
